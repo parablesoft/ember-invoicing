@@ -1,6 +1,8 @@
 export default function() {
 
-	this.get("/invoices");
+	this.get("/invoices/");
+	this.get("/invoices/:id");
+
   // These comments are here to help you get started. Feel free to delete them.
 
   /*

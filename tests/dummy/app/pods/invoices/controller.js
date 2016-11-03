@@ -3,5 +3,8 @@ import InvoiceListController from "ember-invoicing/mixins/invoice-list-controlle
 
 const {Controller} = Ember;
 export default Controller.extend(InvoiceListController,{
-	
+
+  actions:{
+
+  },
 });

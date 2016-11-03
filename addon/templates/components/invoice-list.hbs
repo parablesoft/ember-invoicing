@@ -25,7 +25,7 @@
 				<td>{{invoice.customer}}</td>
 				<td>{{invoice.amount}}</td>
 				<td>{{invoice.date}}</td>
-				<td><a href="#">View Invoice</a></td>
+				<td>{{link-to "View Invoice" "invoice" invoice.id}}</td>
 			</tr>
 		{{/each}}
 	</tbody>
