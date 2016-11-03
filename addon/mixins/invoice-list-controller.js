@@ -5,6 +5,6 @@ const {alias} = computed;
 
 export default Mixin.create({
 	queryParams: ["status"],
-	status: "drafts",
+	status: "Drafts",
 	invoices: alias("model"),
 });

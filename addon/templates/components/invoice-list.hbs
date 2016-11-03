@@ -1,4 +1,4 @@
-{{status}}
+<h2>{{status}}</h2>
 <table class="table table-condensed">
 	<thead>
 		<tr>
@@ -22,10 +22,10 @@
 		{{#each invoices as |invoice|}}
 			<tr>
 				<td>{{invoice.number}}</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>{{invoice.customer}}</td>
+				<td>{{invoice.amount}}</td>
+				<td>{{invoice.date}}</td>
+				<td><a href="#">View Invoice</a></td>
 			</tr>
 		{{/each}}
 	</tbody>

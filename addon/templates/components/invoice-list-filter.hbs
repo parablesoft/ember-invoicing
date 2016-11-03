@@ -1,4 +1,17 @@
-<h3>Filter</h3>
-{{#link-to invoices-route (query-params status="drafts")}}Drafts{{/link-to}}
-{{#link-to invoices-route (query-params status="unpaid")}}Unpaid{{/link-to}}
-{{#link-to invoices-route (query-params status="paid")}}Paid{{/link-to}}
+<div class="status-filter">
+  <h4>Filter by Status</h4>
+  {{#link-to invoices-route (query-params status="Drafts")}}<a href="#" class="invoice-filter-border">Draft</a>{{/link-to}}
+  {{#link-to invoices-route (query-params status="Unpaid")}}<a href="#" class="invoice-filter-border">Unpaid</a>{{/link-to}}
+  {{#link-to invoices-route (query-params status="Paid")}}Paid{{/link-to}}
+</div>
+<div class="date-filter">
+  <h4 class="date-filter-title">Filter by Date</h4>
+  <label>
+    Start date:
+    {{pikaday-input}}
+  </label>
+  <label>
+    End date:
+    {{pikaday-input}}
+  </label>
+</div>
