@@ -1,0 +1,1 @@
+export { default } from 'ember-invoicing/components/ember-invoicing-date-picker';

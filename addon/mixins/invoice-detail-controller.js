@@ -8,6 +8,6 @@ export default Mixin.create({
   actions:{
     closeInvoiceModal(){
       this.transitionToRoute("invoices");
-    }
+    },
   }
 });

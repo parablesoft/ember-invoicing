@@ -6,12 +6,13 @@
 </div>
 <div class="date-filter">
   <h4 class="date-filter-title">Filter by Date</h4>
-  <label>
-    Start date:
-    {{pikaday-input}}
-  </label>
-  <label>
-    End date:
-    {{pikaday-input}}
-  </label>
+    <div class="">
+      {{ember-invoicing-date-picker placeholder="Start Date"}}
+    </div>
+    <div class="ui horizontal divider">
+    To
+    </div>
+    <div class="">
+      {{ember-invoicing-date-picker placeholder="End Date"}}
+    </div>
 </div>
