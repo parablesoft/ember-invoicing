@@ -6,6 +6,9 @@
     "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
     "bootstrap": "~3.3.5",
-    "semantic-ui-divider": "^2.2.3"
+    "semantic-ui-divider": "^2.2.3",
+    "semantic-ui-statistic": "^2.2.6",
+    "semantic-ui-button": "^2.2.6",
+    "semantic-ui-card": "^2.2.6"
   }
 }

@@ -1,10 +1,3 @@
-<div class="container">
-	<div class="row">
-		<div class="col-md-9">
-			{{invoice-list  invoices=invoices status=status}}
-		</div>
-		<div class="col-md-3">
-			{{invoice-list-filter invoices-route="invoices"}}
-		</div>
-	</div>
-</div>
+{{invoice-list  
+	invoicesRoute="invoices"
+	newInvoiceRoute="invoice-new" invoices=invoices status=status}}

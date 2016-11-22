@@ -1,2 +1,10 @@
 @import "../../vendor/assets/stylesheets/ember-invoicing.scss";
 @import "../../vendor/assets/stylesheets/semantic-ui-divider.scss";
+
+html,body{
+  background-color: #e2e2e2;
+}
+
+.app-container{
+  background-color: #fff;
+}

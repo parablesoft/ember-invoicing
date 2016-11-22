@@ -19,30 +19,68 @@
   height: 1000px;
 }
 
-// .modal-header{
-//   padding: 15px;
-//     border-bottom: 1px solid #e5e5e5;
-// }
-//
-// .modal-body{
-//   position: relative;
-//     padding: 15px;
-// }
-//
-// .modal-footer{
-//   padding: 15px;
-//     text-align: right;
-//     border-top: 1px solid #e5e5e5;
-// }
-
-
-
 
 // Media Queries
 
 @media screen and (max-height: 800px) {
   .ember-modal-dialog, .modal-body {
-      overflow-y: auto;
-      max-height: 560px;
+    overflow-y: auto;
+    max-height: 560px;
+  }
 }
+
+.margin-top-10{margin-top:10px;}
+.margin-top-20{margin-top:20px;}
+.margin-top-25{margin-top:25px;}
+.margin-top-30{margin-top:30px;}
+
+.massive-button{
+  padding:15px !important;
+}
+.sheet-container{
+  border: 1px solid #cdd4d9;
+  box-shadow: 2px 2px 0 rgba(6,41,66,.1);
+  border-radius: 4px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+.statistic-link{
+  cursor: pointer;
+  .value, .label{
+    color: #0D83DD !important;
+  }
+}
+
+$status-color: #85C51F;
+$invoice-number-color: #062942;
+
+table.ember-invoicing-list{
+  th.ember-invoicing-header{
+    &.amount{
+      text-align:right;
+    }
+  }
+  td.ember-invoicing-col{
+    font-size: 1.25em;
+    &.date{
+      width:20%
+    }
+    &.customer{
+      width: 20%;
+      span.invoice-number{
+	font-size: 0.85em;
+	color: $invoice-number-color;
+	opacity: 0.5;
+      }
+    }
+    &.amount{
+      text-align:right;
+      width:20%;
+      span.status{
+	font-size: 0.95em;
+	display:block;
+	color:$status-color;
+      }
+    }
+  }
 }

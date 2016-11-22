@@ -1,32 +1,51 @@
-<h2>{{status}}</h2>
-<table class="table table-condensed">
-	<thead>
-		<tr>
-			<th>
-				Invoice #
-			</th>
-			<th>
-				Customer
-			</th>
-			<th>
-				Amount
-			</th>
-			<th>
-				Date
-			</th>
-			<th>
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#each invoices as |invoice|}}
-			<tr>
-				<td>{{invoice.number}}</td>
-				<td>{{invoice.customer}}</td>
-				<td>{{invoice.amount}}</td>
-				<td>{{invoice.date}}</td>
-				<td>{{link-to "View Invoice" "invoice" invoice.id}}</td>
-			</tr>
-		{{/each}}
-	</tbody>
+{{invoice-list-header newInvoiceRoute=newInvoiceRoute}}
+<hr>
+{{invoice-summary invoicesRoute=invoicesRoute}}
+<hr>
+<h2>{{link-to "All Invoices" invoicesRoute (query-params status="All")}} 
+  {{#unless isShowingAll}}
+  >> {{titleizedStatus}}
+  {{/unless}}
+</h2>
+<table class="table table-condensed ember-invoicing-list">
+  <thead>
+    <tr>
+      <th>
+	Customer/
+	Invoice #
+      </th>
+      <th>
+	Issued
+      </th>
+      <th>Due</th>
+      <th class="ember-invoicing-header amount">
+	Amount/Status
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each invoices as |invoice|}}
+    <tr>
+      <td class="ember-invoicing-col customer">
+	{{invoice.customer}}
+	<br/>
+	<span class="invoice-number">
+	  {{invoice.number}}
+	</span>
+      </td>
+      <td class="ember-invoicing-col date">
+	{{moment-format invoice.date "MM/DD/YYYY"}}
+      </td>
+      <td class="ember-invoicing-col date">{{moment-format invoice.date "MM/DD/YYYY"}}</td>
+      <td class="ember-invoicing-col amount">
+	<span class="amount">
+	  {{format-money invoice.amount}}
+	</span>
+	<span class='status'>
+	  sent
+	</span>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
 </table>
