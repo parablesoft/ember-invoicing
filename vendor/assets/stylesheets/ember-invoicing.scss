@@ -56,6 +56,18 @@ $invoice-number-color: #062942;
 
 table.ember-invoicing-list{
   th.ember-invoicing-header{
+    span.invoice-list-table-header{
+      a{
+	text-decoration:none;
+	&:hover{
+	  text-decoration:none;
+	}
+	i{
+	  // position:relative;
+	  // top:4px;
+	}
+      }
+    }
     &.amount{
       text-align:right;
     }

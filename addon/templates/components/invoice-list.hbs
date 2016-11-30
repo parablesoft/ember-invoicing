@@ -10,16 +10,20 @@
 <table class="table table-condensed ember-invoicing-list">
   <thead>
     <tr>
-      <th>
-	Customer/
-	Invoice #
+      <th class="ember-invoicing-header">
+	{{invoice-list-table-header text="Customer" route=invoicesRoute sortColumn="customer" currentSortColumn=sortColumn currentSortDirection=sortAsc}} / 
+	{{invoice-list-table-header text="Invoice #" route=invoicesRoute sortColumn="number" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
+
       </th>
       <th>
-	Issued
+	{{invoice-list-table-header text="Sent On" route=invoicesRoute sortColumn="issuedOn" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
-      <th>Due</th>
+      <th>
+	{{invoice-list-table-header text="Due Date" route=invoicesRoute sortColumn="dueOn" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
+      </th>
       <th class="ember-invoicing-header amount">
-	Amount/Status
+	{{invoice-list-table-header text="Amount" route=invoicesRoute sortColumn="amount" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
+	/ {{invoice-list-table-header text="Status" route=invoicesRoute sortColumn="status" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
     </tr>
   </thead>
@@ -34,15 +38,15 @@
 	</span>
       </td>
       <td class="ember-invoicing-col date">
-	{{moment-format invoice.date "MM/DD/YYYY"}}
+	{{moment-format invoice.issuedOn "MM/DD/YYYY"}}
       </td>
-      <td class="ember-invoicing-col date">{{moment-format invoice.date "MM/DD/YYYY"}}</td>
+      <td class="ember-invoicing-col date">{{moment-format invoice.dueOn "MM/DD/YYYY"}}</td>
       <td class="ember-invoicing-col amount">
 	<span class="amount">
 	  {{format-money invoice.amount}}
 	</span>
 	<span class='status'>
-	  sent
+	  {{invoice.status}}
 	</span>
       </td>
     </tr>
