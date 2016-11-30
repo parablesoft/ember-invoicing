@@ -1,7 +1,7 @@
 {{invoice-list-header newInvoiceRoute=newInvoiceRoute}}
 {{#unless isLoading}}
 <hr>
-{{invoice-summary invoicesRoute=invoicesRoute}}
+{{invoice-summary summaryData=summaryData invoicesRoute=invoicesRoute}}
 <hr>
 <h2>{{link-to "All Invoices" invoicesRoute (query-params status="All")}} 
   {{#unless isShowingAll}}

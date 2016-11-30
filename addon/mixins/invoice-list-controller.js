@@ -10,9 +10,11 @@ export default Mixin.create({
   status: "outstanding",
   startDate: null,
   endDate: null,
-  invoices: computed("model","sortColumn","sortAsc",function(){
-    let {model,sortColumn,sortAsc,status} = this.getProperties("model","sortColumn","sortAsc","status");
-    return model.toArray().sort((a,b)=>{
+  invoicesModel: alias("model.invoices"),
+  summaryData: alias("model.summaryData"),
+  invoices: computed("invoicesModel","sortColumn","sortAsc",function(){
+    let {invoicesModel,sortColumn,sortAsc,status} = this.getProperties("invoicesModel","sortColumn","sortAsc","status");
+    return invoicesModel.toArray().sort((a,b)=>{
       let sortPropertyA = a.get(sortColumn);
       let sortPropertyB = b.get(sortColumn);
       return sortAsc ? Ember.compare(sortPropertyA,sortPropertyB) : Ember.compare(sortPropertyB,sortPropertyA);
