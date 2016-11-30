@@ -12,7 +12,7 @@ export default function() {
       draft: sumAmounts(invoices,"draft"),
       outstanding: sumAmounts(invoices,"outstanding"),
     };
-    let data = status === "All" ? allInvoices :  invoices.where({status: status});
+    let data = status === "All" ? invoices.all() :  invoices.where({status: status});
     let json = this.serialize(data);
     json.meta = meta;
     return json;
