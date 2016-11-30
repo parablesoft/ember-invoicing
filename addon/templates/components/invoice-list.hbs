@@ -7,6 +7,7 @@
   >> {{titleizedStatus}}
   {{/unless}}
 </h2>
+{{#unless isEmptyList}}
 <table class="table table-condensed ember-invoicing-list">
   <thead>
     <tr>
@@ -52,4 +53,19 @@
     </tr>
     {{/each}}
   </tbody>
+  <tfoot class="ember-invoicing-list-totals">
+    <tr>
+      <td colspan="4">
+	Total {{unless isShowingAll titleizedStatus}}: {{format-money sumOfInvoices}} </td>
+    </tr>
+  </tfoot>
 </table>
+{{else}}
+<div class="blank-slate">
+  {{#unless isShowingAll}}
+    There are no {{titleizedStatus}} invoices.
+  {{else}}
+  	There are no invoices in the system.
+  {{/unless}}
+</div>
+{{/unless}}

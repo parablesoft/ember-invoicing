@@ -5,7 +5,7 @@ const {attr,Model} = DS;
 export default Model.extend({
   number: attr('string'),
   customer: attr('string'),
-  amount: attr('string'),
+  amount: attr('number'),
   dueOn: attr('date'),
   issuedOn: attr("date"),
   status: attr('string'),

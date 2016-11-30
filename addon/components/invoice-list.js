@@ -2,7 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/components/invoice-list';
 
 const {Component,computed,get} = Ember;
-const {equal} = computed;
+const {equal,sum,mapBy} = computed;
 
 export default Component.extend({
   layout,
@@ -11,4 +11,6 @@ export default Component.extend({
     return Ember.String.capitalize(get(this,"status"));
 
   }),
+  invoiceAmounts: mapBy("invoices","amount"),
+  sumOfInvoices: sum("invoiceAmounts"),
 });

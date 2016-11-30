@@ -52,7 +52,17 @@
 }
 
 $status-color: #85C51F;
-$invoice-number-color: #062942;
+$subtle-color: #062942;
+$subtle-opacity: 0.5;
+$big-table-text: 1.25em;
+
+.subtle-text{
+  opacity: $subtle-opacity;
+  color: $subtle-color;
+}
+.big-table-text{
+  font-size: $big-table-text;
+}
 
 table.ember-invoicing-list{
   th.ember-invoicing-header{
@@ -62,10 +72,6 @@ table.ember-invoicing-list{
 	&:hover{
 	  text-decoration:none;
 	}
-	i{
-	  // position:relative;
-	  // top:4px;
-	}
       }
     }
     &.amount{
@@ -73,7 +79,7 @@ table.ember-invoicing-list{
     }
   }
   td.ember-invoicing-col{
-    font-size: 1.25em;
+    @extend .big-table-text;
     &.date{
       width:20%
     }
@@ -81,8 +87,7 @@ table.ember-invoicing-list{
       width: 20%;
       span.invoice-number{
 	font-size: 0.85em;
-	color: $invoice-number-color;
-	opacity: 0.5;
+	@extend .subtle-text;
       }
     }
     &.amount{
@@ -92,6 +97,15 @@ table.ember-invoicing-list{
 	font-size: 0.95em;
 	display:block;
 	color:$status-color;
+      }
+    }
+  }
+  tfoot.ember-invoicing-list-totals{
+    tr{
+      td{
+	@extend .subtle-text;
+	@extend .big-table-text;
+	text-align:right;
       }
     }
   }
