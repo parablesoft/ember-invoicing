@@ -44,10 +44,19 @@
   padding-top:20px;
   padding-bottom:20px;
 }
+
+$statistic-link-color: #0D83DD; 
 .statistic-link{
+  padding:20px;
+  &.active{
+    // .value,.label{
+    //   color:red !important;
+    // }
+    border-top: 7px solid $statistic-link-color;
+  }
   cursor: pointer;
   .value, .label{
-    color: #0D83DD !important;
+    color: $statistic-link-color !important;
   }
 }
 

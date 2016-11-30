@@ -1,4 +1,5 @@
 {{invoice-list-header newInvoiceRoute=newInvoiceRoute}}
+{{#unless isLoading}}
 <hr>
 {{invoice-summary invoicesRoute=invoicesRoute}}
 <hr>
@@ -67,5 +68,10 @@
   {{else}}
   	There are no invoices in the system.
   {{/unless}}
+</div>
+{{/unless}}
+{{else}}
+<div class="loading-message">
+  {{fa-icon "spinner" spin=true}} Loading
 </div>
 {{/unless}}
