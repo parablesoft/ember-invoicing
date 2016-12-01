@@ -20,7 +20,6 @@ export default Mixin.create({
       return sortAsc ? Ember.compare(sortPropertyA,sortPropertyB) : Ember.compare(sortPropertyB,sortPropertyA);
     });
   }),
-  isEmptyList: empty("invoices"),
   actions:{
     setStartDate(startDate){
       get(this,"invoices");

@@ -73,7 +73,19 @@ $big-table-text: 1.25em;
   font-size: $big-table-text;
 }
 
+
+table.ember-invoicing-invoice{
+  .ember-invoice-top-line-item{
+    border-bottom:0px;
+  }
+}
+
 table.ember-invoicing-list{
+  tbody{
+    tr{
+      cursor: pointer;
+    }
+  }
   th.ember-invoicing-header{
     span.invoice-list-table-header{
       a{

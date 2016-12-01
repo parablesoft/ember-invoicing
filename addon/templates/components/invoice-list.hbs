@@ -9,7 +9,7 @@
   {{/unless}}
 </h2>
 {{#unless isEmptyList}}
-<table class="table table-condensed ember-invoicing-list">
+<table class="table table-hover table-condensed ember-invoicing-list">
   <thead>
     <tr>
       <th class="ember-invoicing-header">
@@ -31,9 +31,9 @@
   </thead>
   <tbody>
     {{#each invoices as |invoice|}}
-    <tr>
+    {{#link-to invoiceRoute invoice.id tagName="tr"}}
       <td class="ember-invoicing-col customer">
-	{{invoice.customer}}
+	{{invoice.customer.name}}
 	<br/>
 	<span class="invoice-number">
 	  {{invoice.number}}
@@ -51,7 +51,7 @@
 	  {{invoice.status}}
 	</span>
       </td>
-    </tr>
+      {{/link-to}}
     {{/each}}
   </tbody>
   <tfoot class="ember-invoicing-list-totals">

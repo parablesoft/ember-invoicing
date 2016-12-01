@@ -5,7 +5,6 @@ const {filterBy,mapBy,sum} = computed;
 export default function() {
   this.get("invoices",function({invoices},request){
     let status = request.queryParams["filter[by_status]"]
-
     let meta = {
       overdue: sumAmounts(invoices,"overdue"),
       paid: sumAmounts(invoices,"paid"),
