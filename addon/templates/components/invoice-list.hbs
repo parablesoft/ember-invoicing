@@ -24,7 +24,7 @@
 	{{invoice-list-table-header text="Due Date" route=invoicesRoute sortColumn="dueOn" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
       <th class="ember-invoicing-header amount">
-	{{invoice-list-table-header text="Amount" route=invoicesRoute sortColumn="amount" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
+	{{invoice-list-table-header text="Amount" route=invoicesRoute sortColumn="total" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
 	/ {{invoice-list-table-header text="Status" route=invoicesRoute sortColumn="status" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
     </tr>
@@ -45,7 +45,7 @@
       <td class="ember-invoicing-col date">{{moment-format invoice.dueOn "MM/DD/YYYY"}}</td>
       <td class="ember-invoicing-col amount">
 	<span class="amount">
-	  {{format-money invoice.amount}}
+	  {{format-money invoice.total}}
 	</span>
 	<span class='status'>
 	  {{invoice.status}}

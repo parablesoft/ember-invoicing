@@ -12,6 +12,6 @@ export default Component.extend({
     return Ember.String.capitalize(get(this,"status"));
 
   }),
-  invoiceAmounts: mapBy("invoices","amount"),
+  invoiceAmounts: mapBy("invoices","total"),
   sumOfInvoices: sum("invoiceAmounts"),
 });

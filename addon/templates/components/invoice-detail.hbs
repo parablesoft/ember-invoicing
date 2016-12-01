@@ -22,17 +22,15 @@
 	      {{invoice.billToAddress}}<br/>
 	      {{invoice.billToCity}}, {{invoice.billToState}} {{invoice.billToZip}}<br/>
 	    </address>
-	      </div>
+	  </div>
 	  <div  class="text-right col-md-offset-4 col-md-4 due-card">
 	    <h4>Due: 
 	      {{moment-format invoice.dueOn "MM/DD/YYYY"}}
 	    </h4>
-	    <h4>Total: {{format-money invoice.amount}}</h4>
-
-	    
+	    <h4>Total: {{format-money invoice.total}}</h4>
 	  </div>
 	</div>
-	
+
 	<hr>
 	<div class="row">
 	  <div class="col-md-12">
@@ -49,27 +47,27 @@
 		</thead>
 		<tbody>
 		  {{#each invoice.lineItems as |lineItem|}}
-		    <tr>
-		      <td>
-			<p class="font-w600 push-10">{{lineItem.invoiceItem.name}}</p>
-			<div class="text-muted">{{lineItem.description}}</div>
-		      </td>
-		      <td class="text-center"><span class="badge badge-primary">{{lineItem.quantity}}</span></td>
-		      <td class="text-right">{{format-money lineItem.rate}}</td>
-		      <td class="text-right">{{format-money lineItem.total}}</td>
-		    </tr>
+		  <tr>
+		    <td>
+		      <p class="font-w600 push-10">{{lineItem.invoiceItem.name}}</p>
+		      <div class="text-muted">{{lineItem.description}}</div>
+		    </td>
+		    <td class="text-center"><span class="badge badge-primary">{{lineItem.quantity}}</span></td>
+		    <td class="text-right">{{format-money lineItem.rate}}</td>
+		    <td class="text-right">{{format-money lineItem.total}}</td>
+		  </tr>
 		  {{/each}}
 		  <tr>
 		    <td colspan="3" class="font-w600 text-right">Subtotal</td>
-		    <td class="text-right">$ 27.500,00</td>
+		    <td class="text-right">{{format-money invoice.subtotal}}</td>
 		  </tr>
 		  <tr>
 		    <td colspan="3" class="font-w600 text-right">Tax</td>
-		    <td class="text-right">20%</td>
+		    <td class="text-right">{{format-money invoice.tax}}</td>
 		  </tr>
 		  <tr class="active">
 		    <td colspan="3" class="font-w700 text-uppercase text-right">Total Due</td>
-		    <td class="font-w700 text-right">$ 33.000,00</td>
+		    <td class="font-w700 text-right">{{format-money invoice.total}}</td>
 		  </tr>
 		</tbody>
 	      </table>

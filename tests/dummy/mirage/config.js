@@ -18,8 +18,11 @@ export default function() {
   });
   this.get("/invoices/:id");
   function sumAmounts(invoices,status){
-    let amounts = invoices.where({status: status}).models.map(function(item){return item.amount});
-
+    let amounts = invoices.where({status: status}).models.map(function(item){
+      return item.lineItems.models.map(function(item){return parseFloat(item.rate) * parseInt(item.quantity)}).reduce(function(acc,value){
+	return acc + value;
+      },0);
+    });
     let sum = 0;
     for(var i = 0;i < amounts.length;i++){
       sum += amounts[i];
