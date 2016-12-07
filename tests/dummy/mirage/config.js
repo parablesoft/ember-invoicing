@@ -3,6 +3,7 @@ import Ember from "ember";
 const {computed} = Ember;
 const {filterBy,mapBy,sum} = computed;
 export default function() {
+
   this.get("invoices",function({invoices},request){
     let status = request.queryParams["filter[by_status]"]
     let meta = {
@@ -17,6 +18,15 @@ export default function() {
     return json;
   });
   this.get("/invoices/:id");
+  this.post("/invoices");
+  this.patch("/invoices/:id");
+  this.get("customers",function({customers},request){
+    let data = customers.all();
+    return doSearch(this,data,request);
+  });
+
+  this.patch("/customers/:id");
+  this.post("/customers");
   function sumAmounts(invoices,status){
     let amounts = invoices.where({status: status}).models.map(function(item){
       return item.lineItems.models.map(function(item){return parseFloat(item.rate) * parseInt(item.quantity)}).reduce(function(acc,value){
@@ -28,5 +38,20 @@ export default function() {
       sum += amounts[i];
     }
     return sum;
+  }
+  function getFilter(request){
+    return request.queryParams["filter[search]"];
+  }
+  function doSearch(context,collection,request){
+    let filter = getFilter(request);
+    if(filter===undefined){
+      return collection;
+    }
+    let queried = context.serialize(collection);
+    let searchResults = queried.data.filter(function(item){
+      return item.attributes.name.startsWith(filter);
+    });
+    queried.data = searchResults;
+    return queried;
   }
 }

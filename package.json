@@ -1,7 +1,7 @@
 {
   "name": "ember-invoicing",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Ember front end for complete invoicing",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,15 +11,19 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "https://github.com/parablesoft/ember-invoicing",
+  "issues": "https://github.com/parablesoft/ember-invoicing/issues",
+  "homepage": "https://github.com/parablesoft/ember-invoicing",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Vic Amuso <vic@parablesoft.com>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.0.1",
+    "ember-aupac-typeahead": "2.1.1",
+    "ember-bootstrap": "0.11.3",
     "ember-cli": "2.6.3",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
@@ -36,16 +40,17 @@
     "ember-data": "^2.6.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
+    "ember-font-awesome": "2.2.0",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
+    "ember-resource-card": "0.0.7",
+    "ember-ui-helpers": "0.0.34",
     "loader.js": "^4.0.1"
   },
   "keywords": [
     "ember-addon"
   ],
   "dependencies": {
-    "ember-bootstrap": "0.11.1",
-    "ember-font-awesome": "2.2.0",
     "ember-cli-htmlbars": "^1.0.3",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-accounting": "1.0.2",

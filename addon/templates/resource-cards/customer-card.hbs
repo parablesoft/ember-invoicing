@@ -1,0 +1,24 @@
+<a href="#" class="header">
+  {{resource.name}}
+</a>
+<div class="description">
+
+  <div>
+    {{resource.address}}
+  </div>
+  <div >
+    {{resource.city}}, {{resource.state}} {{resource.zip}}<br>
+  </div>
+    {{#if resource.phone}}
+    <div>
+      <i class="fa fa-mobile-phone"></i> {{resource.phone}}<br>
+    </div>
+    {{/if}}
+    {{#if resource.email}}
+    <div>
+      {{fa-icon "envelope"}}
+      <a href="mailto:{{resource.email}}"> {{resource.email}}</a><br>
+    </div>
+    {{/if}}
+
+</div>

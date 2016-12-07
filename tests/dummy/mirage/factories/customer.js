@@ -7,7 +7,7 @@ export default Factory.extend({
   state(){return faker.address.stateAbbr();},
   zip(){return faker.address.zipCode();},
   email(){return faker.internet.email();},
-
+  phone(){return faker.phone.phoneNumber();},
   afterCreate(customer,server){
     let invoiceCount = faker.random.number(3);
     for(var i = 0;i < invoiceCount;i++){

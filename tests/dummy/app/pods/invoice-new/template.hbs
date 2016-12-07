@@ -15,34 +15,20 @@
       <div class="col-md-12">
 	<div class="row">
 	  <div class="col-md-4">
-	    <div class="ui card">
-	      <div class="content">
-		<div class="header">Customer</div>
-	      </div>
-	      <div class="content">
-		<h4 class="ui sub header">
-		  <a href="#">
-		    TCI
-		  </a>
-		</h4>
-		<div class="ui small feed">
-		  <div class="event">
-		    <div class="content">
-		      <div class="summary">
-			<address>
-			  <a href="#">ap@tci.com</a><br/>
-			  1234 Anywhere St.<br/>
-			  Tampa, FL 33601<br/>
-			</address>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	      </div>
-	      <div class="extra content text-right">
-		<button class="ui button">Change Customer</button>
-	      </div>
-	    </div>
+	      {{resource-card 
+	      searchClass="customer"
+	      icon="building"
+	      notFoundTemplate=notFoundTemplate
+	      searchTemplate=searchTemplate
+	      newTemplate=newTemplate
+	      editFormTemplate=editFormTemplate
+	      displayTemplate=displayTemplate
+	      resourceName="Customer"
+	      resource=customer
+	      newResource=newCustomer
+	      onCreate=(action "create")
+	      onUpdate=(action "update")
+	      }}
 	  </div>
 	  <div class="col-md-offset-4 col-md-4">
 	    <div class="ui card">

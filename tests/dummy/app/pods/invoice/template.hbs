@@ -1,1 +1,8 @@
-{{invoice-detail invoicesRoute="invoices" invoice=invoice}}
+{{invoice-detail 
+customer=customer 
+newCustomer=newCustomer
+invoicesRoute="invoices" 
+onSelectCustomer=(action "switchCustomer")
+onUpdateCustomer=(action "updateCustomer")
+onCreateCustomer=(action "createCustomer")
+invoice=invoice}}
