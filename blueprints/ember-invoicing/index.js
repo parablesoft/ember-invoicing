@@ -1,6 +1,6 @@
 /*jshint node:true*/
 module.exports = {
-  description: ''
+  description: '',
   normalizeEntityName: function() {},
   afterInstall: function(options) {
     return this.addAddonsToProject({
