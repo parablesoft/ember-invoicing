@@ -9,9 +9,10 @@ import newTemplate from "dummy/templates/resource-cards/customer-new";
 const {set,get,Controller,computed} = Ember;
 const {alias} = computed;
 export default Controller.extend({
-  newInvoice: alias("model.newInvoice"),
+  invoice: alias("model.newInvoice"),
   customer: null,
   newCustomer: alias("model.newCustomer"),
+  invoiceItems: alias("model.invoiceItems"),
   editFormTemplate: editFormTemplate,
   notFoundTemplate: notFoundTemplate,
   newTemplate: newTemplate,

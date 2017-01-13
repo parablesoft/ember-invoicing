@@ -1,0 +1,110 @@
+.invoice-list-filter {
+  margin-top: 30px;
+}
+.invoice-list-filter .status-filter {
+  margin-bottom: 30px;
+}
+.invoice-list-filter .status-filter .invoice-filter-border {
+  border-right: 1px solid #9d9d9d;
+  padding: 2%;
+}
+
+.invoice-modal-body {
+  height: 1000px;
+}
+
+@media screen and (max-height: 800px) {
+  .ember-modal-dialog, .modal-body {
+    overflow-y: auto;
+    max-height: 560px;
+  }
+}
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-25 {
+  margin-top: 25px;
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+.massive-button {
+  padding: 15px !important;
+}
+
+.sheet-container {
+  border: 1px solid #cdd4d9;
+  box-shadow: 2px 2px 0 rgba(6, 41, 66, 0.1);
+  border-radius: 4px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.statistic-link {
+  padding: 20px;
+  cursor: pointer;
+}
+.statistic-link.active {
+  border-top: 7px solid #0D83DD;
+}
+.statistic-link .value, .statistic-link .label {
+  color: #0D83DD !important;
+}
+
+.subtle-text, table.ember-invoicing-list td.ember-invoicing-col.customer span.invoice-number, table.ember-invoicing-list tfoot.ember-invoicing-list-totals tr td {
+  opacity: 0.5;
+  color: #062942;
+}
+
+.big-table-text, table.ember-invoicing-list td.ember-invoicing-col, table.ember-invoicing-list tfoot.ember-invoicing-list-totals tr td {
+  font-size: 1.25em;
+}
+
+table.ember-invoicing-invoice .ember-invoice-top-line-item {
+  border-bottom: 0px;
+}
+
+table.ember-invoicing-list tbody tr {
+  cursor: pointer;
+}
+table.ember-invoicing-list th.ember-invoicing-header span.invoice-list-table-header a {
+  text-decoration: none;
+}
+table.ember-invoicing-list th.ember-invoicing-header span.invoice-list-table-header a:hover {
+  text-decoration: none;
+}
+table.ember-invoicing-list th.ember-invoicing-header.amount {
+  text-align: right;
+}
+table.ember-invoicing-list td.ember-invoicing-col.date {
+  width: 20%;
+}
+table.ember-invoicing-list td.ember-invoicing-col.customer {
+  width: 20%;
+}
+table.ember-invoicing-list td.ember-invoicing-col.customer span.invoice-number {
+  font-size: 0.85em;
+}
+table.ember-invoicing-list td.ember-invoicing-col.amount {
+  text-align: right;
+  width: 20%;
+}
+table.ember-invoicing-list td.ember-invoicing-col.amount span.status {
+  font-size: 0.95em;
+  display: block;
+  color: #85C51F;
+}
+table.ember-invoicing-list tfoot.ember-invoicing-list-totals tr td {
+  text-align: right;
+}
+
+
+
+

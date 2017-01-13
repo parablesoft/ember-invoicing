@@ -1,6 +1,6 @@
 {
   "name": "ember-invoicing",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Ember front end for complete invoicing",
   "directories": {
     "doc": "doc",
@@ -21,20 +21,24 @@
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
+    "email-modal": "0.0.8",
     "ember-ajax": "^2.0.1",
+    "ember-async-button": "1.0.2",
     "ember-aupac-typeahead": "2.1.1",
     "ember-bootstrap": "0.11.3",
     "ember-cli": "2.6.3",
+    "ember-cli-accounting": "1.0.2",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-inject-live-reload": "^1.4.0",
     "ember-cli-jshint": "^1.0.0",
     "ember-cli-mirage": "0.2.4",
-    "ember-cli-moment-shim": "2.2.1",
+    "ember-cli-moment-shim": "3.0.0",
     "ember-cli-qunit": "^1.4.0",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sass": "5.6.0",
+    "ember-cli-selectize": "0.5.11",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-data": "^2.6.0",
@@ -42,6 +46,8 @@
     "ember-export-application-global": "^1.0.5",
     "ember-font-awesome": "2.2.0",
     "ember-load-initializers": "^0.5.1",
+    "ember-moment": "6.1.0",
+    "ember-pikaday": "2.2.0",
     "ember-resolver": "^2.0.3",
     "ember-resource-card": "0.0.7",
     "ember-ui-helpers": "0.0.34",
@@ -52,10 +58,7 @@
   ],
   "dependencies": {
     "ember-cli-htmlbars": "^1.0.3",
-    "ember-cli-babel": "^5.1.6",
-    "ember-cli-accounting": "1.0.2",
-    "ember-moment": "6.1.0",
-    "ember-pikaday": "2.2.0"
+    "ember-cli-babel": "^5.1.6"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

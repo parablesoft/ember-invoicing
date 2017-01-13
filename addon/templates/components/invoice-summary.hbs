@@ -15,7 +15,7 @@
       outstanding
     </div>
   {{/link-to}}
-  {{#link-to invoicesRoute (query-params status="draft") tagName="div" class="statistic statistic-link"}}
+  {{#link-to invoicesRoute (query-params status="drafts") tagName="div" class="statistic statistic-link"}}
     <div class="value">
       {{format-money summaryData.draft precision=0}}
     </div>

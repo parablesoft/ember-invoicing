@@ -6,12 +6,26 @@ const {equal,sum,mapBy,empty} = computed;
 
 export default Component.extend({
   layout,
+  hideNewInvoice: false,
+  hideSummary: false,
+  isShowingPoNumber: false,
   isShowingAll: equal("status","All"),
+  isViewingDrafts: equal("status","drafts"),
   isEmptyList: empty("invoices"),
   titleizedStatus: computed("status",function(){
     return Ember.String.capitalize(get(this,"status"));
 
   }),
-  invoiceAmounts: mapBy("invoices","total"),
+  invoiceAmounts: computed("invoices",function(){
+    let invoices = this.get("invoices");
+    return invoices.map(function(item){
+      return Ember.isEmpty(item.get("total")) ? 0 : parseFloat(item.get("total"));
+    });
+  }),
   sumOfInvoices: sum("invoiceAmounts"),
+  actions:{
+    deleteInvoice(invoice){
+      this.attrs.onDeleteInvoice(invoice);
+    }
+  }
 });

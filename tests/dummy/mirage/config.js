@@ -4,6 +4,7 @@ const {computed} = Ember;
 const {filterBy,mapBy,sum} = computed;
 export default function() {
 
+  this.resource("invoice-items");
   this.get("invoices",function({invoices},request){
     let status = request.queryParams["filter[by_status]"]
     let meta = {
@@ -18,7 +19,14 @@ export default function() {
     return json;
   });
   this.get("/invoices/:id");
-  this.post("/invoices");
+  this.post("/invoices",(schema,request) => {
+    let params = JSON.parse(request.requestBody);
+    params = {
+      number: "1234",
+    }
+    console.log(params);
+    return schema.invoices.create(params);
+  });
   this.patch("/invoices/:id");
   this.get("customers",function({customers},request){
     let data = customers.all();

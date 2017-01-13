@@ -1,12 +1,21 @@
+{{#unless hideNewInvoice}}
 {{invoice-list-header newInvoiceRoute=newInvoiceRoute}}
-{{#unless isLoading}}
 <hr>
+{{/unless}}
+{{#unless isLoading}}
+{{#unless hideSummary}}
 {{invoice-summary summaryData=summaryData invoicesRoute=invoicesRoute}}
 <hr>
-<h2>{{link-to "All Invoices" invoicesRoute (query-params status="All")}} 
+{{/unless}}
+<h2>
+{{#unless hideSummary}}
+  {{link-to "All Invoices" invoicesRoute (query-params status="All")}} 
   {{#unless isShowingAll}}
   >> {{titleizedStatus}}
   {{/unless}}
+{{else}}
+{{titleizedStatus}}
+{{/unless}}
 </h2>
 {{#unless isEmptyList}}
 <table class="table table-hover table-condensed ember-invoicing-list">
@@ -15,11 +24,17 @@
       <th class="ember-invoicing-header">
 	{{invoice-list-table-header text="Customer" route=invoicesRoute sortColumn="customer" currentSortColumn=sortColumn currentSortDirection=sortAsc}} / 
 	{{invoice-list-table-header text="Invoice #" route=invoicesRoute sortColumn="number" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
-
       </th>
+      {{#if isShowingPoNumber}}
+      <th>
+	{{invoice-list-table-header text="PO #" route=invoicesRoute sortColumn="poNumber" currentSortColumn=sortColumn currentSortDirection=sortAsc}} / 
+      </th>
+      {{/if}}
+      {{#unless isViewingDrafts}}
       <th>
 	{{invoice-list-table-header text="Sent On" route=invoicesRoute sortColumn="issuedOn" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
+      {{/unless}}
       <th>
 	{{invoice-list-table-header text="Due Date" route=invoicesRoute sortColumn="dueOn" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
@@ -32,17 +47,35 @@
   <tbody>
     {{#each invoices as |invoice|}}
     {{#link-to invoiceRoute invoice.id tagName="tr"}}
+
       <td class="ember-invoicing-col customer">
-	{{invoice.customer.name}}
+	{{invoice.name}}
 	<br/>
 	<span class="invoice-number">
 	  {{invoice.number}}
 	</span>
       </td>
-      <td class="ember-invoicing-col date">
-	{{moment-format invoice.issuedOn "MM/DD/YYYY"}}
+      {{#if isShowingPoNumber}}
+      <td>
+	{{invoice.poNumber}}
       </td>
-      <td class="ember-invoicing-col date">{{moment-format invoice.dueOn "MM/DD/YYYY"}}</td>
+      {{/if}}
+      {{#unless isViewingDrafts}}
+      <td class="ember-invoicing-col date">
+	{{#if invoice.issuedOn}}
+	  {{moment-format invoice.issuedOn "MM/DD/YYYY"}}
+	{{else}}
+		Not Sent
+	{{/if}}
+      </td>
+      {{/unless}}
+      <td class="ember-invoicing-col date">
+	{{#if invoice.dueDate}}
+	{{moment-format invoice.dueDate "MM/DD/YYYY"}}
+	{{else}}
+	Not Set
+	{{/if}}
+      </td>
       <td class="ember-invoicing-col amount">
 	<span class="amount">
 	  {{format-money invoice.total}}
@@ -56,7 +89,7 @@
   </tbody>
   <tfoot class="ember-invoicing-list-totals">
     <tr>
-      <td colspan="4">
+      <td colspan="5">
 	Total {{unless isShowingAll titleizedStatus}}: {{format-money sumOfInvoices}} </td>
     </tr>
   </tfoot>

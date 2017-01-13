@@ -15,6 +15,7 @@
       <div class="col-md-12">
 	<div class="row">
 	  <div class="col-md-4">
+	    <h4>Customer</h4>
 	      {{resource-card 
 	      searchClass="customer"
 	      icon="building"
@@ -40,7 +41,7 @@
 		  <div class="event">
 		    <div class="content">
 		      <div class="summary">
-			{{input class="form-control"}}
+			{{input value=invoice.number class="form-control"}}
 		      </div>
 		    </div>
 		  </div>
@@ -54,14 +55,12 @@
 		  <div class="event">
 		    <div class="content">
 		      <div class="summary">
-			{{input class="form-control"}}
+			{{pikaday-input class="form-control" format="MM/DD/YYYY"}}
 		      </div>
 		    </div>
 		  </div>
 		</div>
 	      </div>
-
-
 	      <div class="content">
 		<div class="header">Total</div>
 	      </div>
@@ -79,12 +78,6 @@
 	    </div>
 	  </div>
 	</div>
-	<div class="row">
-	  <div class="col-md-12">
-	    <h4>Notes</h4>
-	    {{textarea rows=5 class="form-control"}}
-	  </div>
-	</div>
 	<hr>
 	<div class="row">
 	  <div class="col-md-12">
@@ -100,28 +93,42 @@
 	        </tr>
 	      </thead>
 	      <tbody>
+		{{#each invoice.lineItems as |lineItem|}}
 	        <tr>
 	          <td>
-		    {{input class="form-control"}}
+		    {{ember-selectize 
+		    	content=invoiceItems
+			optionValuePath="content.id"
+			optionLabelPath="content.name"
+			selection=lineItem.invoiceItem
+			placeholder="Select a item..."}}
 		  </td>
 	          <td>
-		    {{input value=5000 class="form-control"}}
+		    {{input type="number" value=lineItem.rate class="form-control"}}
 		  </td>
 		  <td>
-		    {{input value=1 class="form-control"}}
+		    {{input type="number" value=lineItem.quantity class="form-control"}}
 		  </td>
 	          <td>
-		    $5000.00
+		    {{format-money lineItem.total}}
 		  </td>
 	        </tr>
 		<tr>
 		  <td colspan="4">
-		    {{textarea class="form-control" placeholder="Additional description"}}
+		    {{textarea value=lineItem.description class="form-control" placeholder="Additional description"}}
 		  </td>
 		</tr>
+		{{/each}}
 	      </tbody>
 	    </table>
 	    <button class="ui button massive primary">Add Line Item</button>
+	  </div>
+	</div>
+	<hr>
+	<div class="row">
+	  <div class="col-md-12">
+	    <h4>Notes</h4>
+	    {{textarea rows=5 class="form-control"}}
 	  </div>
 	</div>
 

@@ -8,7 +8,7 @@ export default Ember.Mixin.create({
     }
   },
   model(params){
-    let invoices = this.store.query("invoice",{"filter[by_status]": params.status});
+    let invoices = this.store.query("invoiceList",{"filter[by_status]": params.status});
     let summaryData = invoices.then((result) => {
       let meta = result.get("meta");
       return meta;
