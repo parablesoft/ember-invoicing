@@ -1,0 +1,28 @@
+  <td>
+    {{ember-selectize 
+    content=invoiceItems
+    optionValuePath="content.id"
+    optionLabelPath="content.name"
+    selection=invoiceItem
+    select-item=(action "itemSelected")
+    placeholder="Select a item..."}}
+  </td>
+  <td>
+    {{input value=changeset.description class="form-control"}}
+
+  </td>
+  <td>
+    {{input type="number" value=changeset.rate class="form-control"}}
+  </td>
+  <td>
+    <a href="#" {{action "delete" lineItem}}>{{fa-icon "trash-o"}}</a>
+    <span style="display:inline-block;width:20px;">
+      {{#if isDirty}}
+      <small>Unsaved</small>
+      {{else}}
+      	{{#if isSaved}}
+	<small class="yellow-notice">Saved</small>
+	{{/if}}
+      {{/if}}
+    </span>
+  </td>

@@ -1,0 +1,153 @@
+{{#if isShowingEmailModal}}
+  {{#email-modal title="Send Invoice"
+  	action-button-default-text="Send Invoice"
+	action-button-fulfilled-text="Invoice Sent!"
+	action-button-pending-text="Sending..."
+	subject=emailSubject
+	message="Default invoice message"
+	model=invoice
+	to=billingEmail
+	on-send-email=(action "sendInvoice")
+	on-close=(action "closeEmailModal")
+  }}
+
+  <div class="text-center download-invoice-email">
+    <h4 class="text-center">Invoice</h4>
+    <div style="margin-bottom: 15px;">
+      <a href="#" {{action "download" invoice}}>
+	<img src="/assets/images/invoice.png">
+      </a>
+    </div>
+    <div>
+      <a href="#" class="massive ui massive-button button" {{action "download" invoice}}>{{fa-icon "download"}} View Invoice</a>
+    </div>
+  </div>
+  {{/email-modal}}
+{{/if}}
+<div class="row">
+  <div class=" col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+	<h1>Invoice</h1>
+      </div>
+      <div class="col-md-6 margin-top-10 text-right">
+	{{link-to "return to invoices" invoices-route}}
+	{{#bs-button  action=(action "openEmailModal") class="massive positive massive-button ui button"}}
+	{{fa-icon "envelope"}} Send
+	{{/bs-button}}
+	<a href="#" {{action "download" invoice}} class="massive massive-button ui button">{{fa-icon "download"}} Download</a>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+	<div class="row">
+	  <div class="col-md-4">
+	    {{#if hasBlock}}
+	    {{yield}}
+	    {{/if}}
+	  </div>
+	  <div class="col-md-offset-4 col-md-4">
+	    <div class="ui card">
+	      <div class="content clearfix">
+		<div class="header pull-left">Invoice #</div>
+		{{#if invoiceNumberSaved}}
+		<div class="header pull-right yellow-notice">Saved</div>
+		{{/if}}
+	      </div>
+	      <div class="content">
+		<div class="ui small feed">
+		  <div class="event">
+		    <div class="content">
+		      <div class="summary">
+			<strong>
+			  <div class="form-control">
+			    {{invoice.number}}
+			  </div>
+			</strong>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	      </div>
+	      <div class="content clearfix">
+		<div class="header pull-left">Due</div>
+		{{#if dueDateSaved}}
+		  <div class="header pull-right yellow-notice">Saved</div>
+		{{/if}}
+	      </div>
+	      <div class="content">
+		<div class="ui small feed">
+		  <div class="event">
+		    <div class="content">
+		      <div class="summary">
+			{{pikaday-input
+			value=invoice.dueDate
+			onSelection=(action 'setDueDate')
+			useUTC=true
+			firstDay=0
+			format="MM/DD/YYYY" class="form-control"}}
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	      </div>
+	      <div class="content">
+		<div class="header">Total</div>
+	      </div>
+	      <div class="content">
+		<div class="ui small feed">
+		  <div class="event">
+		    <div class="content">
+		      <div class="summary">
+			<h4 class="ui sub header">{{format-money invoice.total}}</h4>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<hr>
+
+	<div class="row">
+	  <div class="col-md-12">
+	    <table class="table table-condensed">
+	      <thead>
+		<tr>
+		  <th style="width:25%">
+		    Item
+		  </th>
+		  <th>Description</th>
+		  <th>Rate</th>
+		  <th></th>
+		</tr>
+	      </thead>
+	      <tbody>
+		{{#each lineItems as |lineItem|}}
+		{{invoice-line-item invoiceItems=invoice-items 
+		  lineItem=lineItem
+		  on-update=(action "updateLineItem")
+		  on-delete=(action "deleteLineItem")
+		}}
+		{{/each}}
+	      </tbody>
+	    </table>
+	    <button {{action "addLineItem"}} class="ui button massive primary">Add Line Item</button>
+	  </div>
+	</div>
+	<hr>
+	{{#if on-delete}}
+	  <div class="row">
+	    <div class="col-md-12 text-right">
+	      <a href="#" {{action "delete" invoice}}>{{fa-icon "trash-o"}} Delete Invoice</a>
+	    </div>
+	  </div>
+	{{/if}}
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,118 @@
+import Ember from "ember";
+import Notifyable from "ember-ui-helpers/mixins/notifyable";
+import computed from 'ember-computed-decorators';
+import { any,oneWay,alias,notEmpty,empty  } from 'ember-computed-decorators';
+const {get,set,Component} = Ember;
+export default Component.extend(Notifyable,{
+  session: Ember.inject.service(),
+  @alias("invoice.dealer") dealer,
+  @oneWay("dealer.billingEmail") billingEmail,
+  @alias("invoice.invoiceLineItems") lineItems,
+  @alias("invoice.hasDirtyAttributes") isInvoiceDirty,
+  @empty("invoice.dueDate") isInvoiceIncomplete,
+  @computed("invoice.number") emailSubject(invoiceNumber){
+    return `[Marygrove Sunscreens Invoice #${invoiceNumber}]`;
+  },
+  @computed("lineItems","lineItems.@each.hasDirtyAttributes") hasDirtyLineItems(lineItems){
+    return lineItems.any(function(item){
+      return item.get("hasDirtyAttributes");
+    });
+  },
+  @empty("lineItems") canChangeDeal,
+  @notEmpty("billTo.content") isResourceLoaded,
+  addLineItem(){
+    let invoice = get(this,"invoice");
+    let lineItem = this.store.createRecord("invoiceLineItem",{invoice: invoice, invoiceItem: null});
+  },
+  saveInvoice(){
+    return get(this,"invoice").save();
+  },
+  dueDateSaved: false,
+  showDueDateSaved(){
+    set(this,"dueDateSaved",true);
+    Ember.run.later(this,function(){
+      set(this,"dueDateSaved",false);
+    },3000);
+  },
+  saveInvoiceNumber(changeset){
+    changeset.save().then(()=>{
+      set(this,"invoiceNumberSaved",true);
+      Ember.run.later(this,function(){
+	set(this,"invoiceNumberSaved",false);
+      },3000);
+    });
+  },
+  isShowingEmailModal: false,
+  toggleEmailModal(show=true){
+    set(this,"isShowingEmailModal",show);
+  },
+  actions: {
+    closeEmailModal(){
+      this.toggleEmailModal(false);
+    },
+    openEmailModal(){
+      if(get(this,"isInvoiceIncomplete")){return;}
+      this.toggleEmailModal();
+    },
+    download(invoice){
+      let {id,number,host} = invoice.getProperties("id","number","host");
+
+      let invoiceLabel = Ember.isPresent(number) ? number : id;
+
+      $.ajax({
+	url: `${host}/api/v1/invoices/${id}.pdf`, 
+	success: download.bind(true, "application/pdf", `invoice-${invoiceLabel}.pdf`),
+	beforeSend: (xhr) => {
+	  this.get('session').authorize("authorizer:devise", (headerName, headerValue) => {
+	    xhr.setRequestHeader(headerName, headerValue);
+	  });
+	},
+      });
+    },
+    sendInvoice(invoice,to,cc,subject,message){
+      let messageParams = {to: to, cc: cc, subject: subject, message: message};
+      return invoice.markSent({message_params: messageParams}).then(()=>{
+	this.successMessage("Your invoice has been sent!");
+	this.transitionToRoute("admin.accounting.invoices");
+      });
+    },
+    saveInvoiceNumber(changeset){
+      Ember.run.debounce(this,this.saveInvoiceNumber,changeset,1500);
+    },
+    delete(invoice){
+      let confirmDelete = confirm("Are you sure you want to delete this invoice?");
+      if(!confirmDelete){return;}
+      invoice.destroyRecord().then(()=>{
+	this.transitionToRoute("accounting.invoices");
+      });
+    },
+    updateLineItem(lineItem){
+      return lineItem.save();
+    },
+    setDueDate(value){
+      set(this,"invoice.dueDate",value);
+      this.saveInvoice().then(()=>{
+	this.showDueDateSaved();
+      });
+    },
+    deleteLineItem(lineItem){
+      lineItem.destroyRecord().then(()=>{
+      });
+    },
+    addLineItem(){
+      this.addLineItem();
+    },
+    selected(resource){
+      this.store.findRecord("deal",get(resource,"id"),{include: "invoice_items"}).then((deal)=>{
+	set(this,"invoice.deal",deal);
+	get(this,"invoice").save().then(()=>{
+	});
+      });
+
+    },
+    update(changeset){
+      return changeset.save();
+    },
+  },
+
+});
