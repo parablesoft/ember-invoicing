@@ -38,6 +38,9 @@ export default Component.extend({
     cancel(get(this,"takeAway"));
   },
   actions:{
+    save(){
+      this.save();
+    },
     itemSelected(selected){
       set(this,"changeset.invoiceItem",selected);
     },

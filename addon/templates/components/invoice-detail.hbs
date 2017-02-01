@@ -32,9 +32,11 @@
       </div>
       <div class="col-md-6 margin-top-10 text-right">
 	{{link-to "return to invoices" invoices-route}}
+	{{#if isReadyToSend}}
 	{{#bs-button  action=(action "openEmailModal") class="massive positive massive-button ui button"}}
 	{{fa-icon "envelope"}} Send
 	{{/bs-button}}
+	{{/if}}
 	<a href="#" {{action "download" invoice}} class="massive massive-button ui button">{{fa-icon "download"}} Download</a>
       </div>
     </div>
@@ -70,6 +72,7 @@
 		  </div>
 		</div>
 	      </div>
+	      {{#if dueDateRequired}}
 	      <div class="content clearfix">
 		<div class="header pull-left">Due</div>
 		{{#if dueDateSaved}}
@@ -92,6 +95,7 @@
 		  </div>
 		</div>
 	      </div>
+	      {{/if}}
 	      <div class="content">
 		<div class="header">Total</div>
 	      </div>
@@ -113,6 +117,7 @@
 
 	<div class="row">
 	  <div class="col-md-12">
+	    {{#if canAddLineItem}}
 	    <table class="table table-condensed">
 	      <thead>
 		<tr>
@@ -127,25 +132,34 @@
 	      <tbody>
 		{{#each lineItems as |lineItem|}}
 		{{invoice-line-item invoiceItems=invoice-items 
-		  lineItem=lineItem
-		  on-update=(action "updateLineItem")
-		  on-delete=(action "deleteLineItem")
+		lineItem=lineItem
+		on-update=(action "updateLineItem")
+		on-delete=(action "deleteLineItem")
 		}}
 		{{/each}}
 	      </tbody>
 	    </table>
-	    <button {{action "addLineItem"}} class="ui button massive primary">Add Line Item</button>
+	    {{#if canEdit}}
+	      <button {{action "addLineItem"}} class="ui button massive primary">Add Line Item</button>
+	    {{/if}}
+	    {{/if}}
+	    {{#if areInvoiceItemsLoaded}}
+	    {{#if notReadyToInvoice}}
+	    <h3 class="text-center">{{cannotAddLineItems}}</h3>
+	    {{/if}}
+	    {{/if}}
 	  </div>
 	</div>
 	<hr>
 	{{#if on-delete}}
+	  {{#if canEdit}}
 	  <div class="row">
 	    <div class="col-md-12 text-right">
 	      <a href="#" {{action "delete" invoice}}>{{fa-icon "trash-o"}} Delete Invoice</a>
 	    </div>
 	  </div>
+	  {{/if}}
 	{{/if}}
-
       </div>
     </div>
 

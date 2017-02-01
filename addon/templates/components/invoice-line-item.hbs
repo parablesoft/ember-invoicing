@@ -8,11 +8,11 @@
     placeholder="Select a item..."}}
   </td>
   <td>
-    {{input value=changeset.description class="form-control"}}
+    {{input focus-out=(action "save") value=changeset.description class="form-control"}}
 
   </td>
   <td>
-    {{input type="number" value=changeset.rate class="form-control"}}
+    {{input focus-out=(action "save") type="number" value=changeset.rate class="form-control"}}
   </td>
   <td>
     <a href="#" {{action "delete" lineItem}}>{{fa-icon "trash-o"}}</a>

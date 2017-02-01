@@ -8,6 +8,8 @@ const {service} = inject;
 
 export default Ember.Component.extend({
   layout,
+  dueDateRequired:true,
+  cannotAddLineItems: "There are no invoice items configured. Before you can invoice, invoice items must be added.",
   session: service(),
   store: service(),
   @alias("invoice.invoiceLineItems") lineItems,
@@ -47,8 +49,8 @@ export default Ember.Component.extend({
       let {id,number} = invoice.getProperties("id","number");
       let host = get(this,"host");
       let invoiceLabel = Ember.isPresent(number) ? number : id;
-      let url = `${host}/api/v1/invoices/${id}.pdf`
-      $.ajax({
+      let url = `${host}/api/v1/invoices/${id}.pdf`;
+      Ember.$.ajax({
 	url: url, 
 	success: download.bind(true, "application/pdf", `invoice-${invoiceLabel}.pdf`),
 	beforeSend: (xhr) => {
