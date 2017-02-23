@@ -7,6 +7,7 @@ const {equal,sum,mapBy,empty} = computed;
 export default Component.extend({
   layout,
   hideNewInvoice: false,
+  hideDueDate: false,
   hideSummary: false,
   isShowingPoNumber: false,
   isShowingAll: equal("status","All"),
