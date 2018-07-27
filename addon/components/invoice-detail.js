@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/invoice-detail';
-import { alias,empty } from 'ember-computed-decorators';
+import { equal,alias,empty } from 'ember-computed-decorators';
 
 const {run,get,set,Component,inject} = Ember;
 const {later} = run;
@@ -14,11 +14,13 @@ export default Ember.Component.extend({
   store: service(),
   @alias("invoice.invoiceLineItems") lineItems,
   @empty("invoice.dueDate") isInvoiceIncomplete,
+  @equal("invoice.status","draft") isDraft,
   toggleEmailModal(show=true){
     set(this,"isShowingEmailModal",show);
   },
   billingEmail: "",
   emailSubject: "",
+  invoiceMessage: "",
   dueDateSaved: false,
   showDueDateSaved(){
     set(this,"dueDateSaved",true);
@@ -30,6 +32,9 @@ export default Ember.Component.extend({
     addLineItem(){
       this.attrs["on-add-line-item"]();
     },
+    markAsSent(invoice){
+      this.attrs["on-mark-as-sent-invoice"](invoice);
+    },
     delete(invoice){
       let confirmDelete = confirm("Are you sure you want to delete this invoice?");
       if(!confirmDelete){return;}
@@ -40,7 +45,9 @@ export default Ember.Component.extend({
     },
     sendInvoice(invoice,to,cc,subject,message){
       let messageParams = {to: to, cc: cc, subject: subject, message: message};
-      return this.attrs["on-send-invoice"](invoice,messageParams);
+      return this.attrs["on-send-invoice"](invoice,messageParams).then(()=>{
+	this.toggleEmailModal(false);
+      });
     },
     updateLineItem(lineItem){
       return this.attrs["on-update-line-item"](lineItem);
@@ -73,5 +80,5 @@ export default Ember.Component.extend({
     openEmailModal(){
       this.toggleEmailModal();
     },
-  }
+  },
 });

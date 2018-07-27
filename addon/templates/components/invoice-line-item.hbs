@@ -1,21 +1,36 @@
   <td>
-    {{ember-selectize 
-    content=invoiceItems
-    optionValuePath="content.id"
-    optionLabelPath="content.name"
-    selection=invoiceItem
-    select-item=(action "itemSelected")
-    placeholder="Select a item..."}}
+    {{#if isDraft}}
+      {{ember-selectize 
+      content=invoiceItems
+      optionValuePath="content.id"
+      optionLabelPath="content.name"
+      selection=invoiceItem
+      select-item=(action "itemSelected")
+      placeholder="Select a item..."}}
+    {{else}}
+      {{lineItem.invoiceItem.name}}
+    {{/if}}
   </td>
   <td>
-    {{input focus-out=(action "save") value=changeset.description class="form-control"}}
+    {{#if isDraft}}
+      {{input change=(action "save") value=changeset.description class="form-control"}}
+    {{else}}
+      {{lineItem.description}}
+    {{/if}}
 
   </td>
   <td>
-    {{input focus-out=(action "save") type="number" value=changeset.rate class="form-control"}}
+    {{#if isDraft}}
+    {{input change=(action "save") type="number" value=changeset.rate class="form-control"}}
+    {{else}}
+      {{format-money lineItem.rate}}
+    {{/if}}
   </td>
   <td>
-    <a href="#" {{action "delete" lineItem}}>{{fa-icon "trash-o"}}</a>
+    {{#if isDraft}}
+      <a href="#" {{action "delete" lineItem}}>{{fa-icon "trash-o"}}</a>
+    {{/if}}
+
     <span style="display:inline-block;width:20px;">
       {{#if isDirty}}
       <small>Unsaved</small>

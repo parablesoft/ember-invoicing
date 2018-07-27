@@ -4,7 +4,7 @@
 {{/unless}}
 {{#unless isLoading}}
 {{#unless hideSummary}}
-{{invoice-summary summaryData=summaryData invoicesRoute=invoicesRoute}}
+{{invoice-summary summaryData=summaryData invoicesRoute=invoicesRoute hidePaid=hidePaid hideOverdue=hideOverdue}}
 <hr>
 {{/unless}}
 <h2>
@@ -44,12 +44,14 @@
 	{{invoice-list-table-header text="Amount" route=invoicesRoute sortColumn="total" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
 	/ {{invoice-list-table-header text="Status" route=invoicesRoute sortColumn="status" currentSortColumn=sortColumn currentSortDirection=sortAsc}}
       </th>
+
+	<th>
+	</th>
     </tr>
   </thead>
   <tbody>
     {{#each invoices as |invoice|}}
     {{#link-to invoiceRoute invoice.id tagName="tr"}}
-
       <td class="ember-invoicing-col customer">
 	{{invoice.name}}
 	<br/>
@@ -89,6 +91,11 @@
 	  {{invoice.status}}
 	</span>
       </td>
+	<td class="ember-invoicing-col text-center" >
+	  {{#if (and paymentComponent (eq invoice.status "outstanding"))}}
+	    {{component paymentComponent onSubmitPayment=this.attrs.onSubmitPayment invoice=invoice}}
+	  {{/if}}
+	</td>
       {{/link-to}}
     {{/each}}
   </tbody>

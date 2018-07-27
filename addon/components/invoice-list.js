@@ -9,6 +9,7 @@ export default Component.extend({
   hideNewInvoice: false,
   hideDueDate: false,
   hideSummary: false,
+  paymentComponent: null,
   isShowingPoNumber: false,
   isShowingAll: equal("status","All"),
   isViewingDrafts: equal("status","drafts"),

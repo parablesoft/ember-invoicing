@@ -1,12 +1,14 @@
 <div class="ui four statistics">
-  {{#link-to invoicesRoute (query-params status="paid") tagName="div" class="statistic statistic-link"}}
-    <div class="value">
-      {{format-money summaryData.paid precision=0}}
-    </div>
-    <div class="label">
-      paid last 30 days
-    </div>
-  {{/link-to}}
+  {{#unless hidePaid}}
+    {{#link-to invoicesRoute (query-params status="paid") tagName="div" class="statistic statistic-link"}}
+      <div class="value">
+	{{format-money summaryData.paid precision=0}}
+      </div>
+      <div class="label">
+	paid last 30 days
+      </div>
+    {{/link-to}}
+  {{/unless}}
   {{#link-to invoicesRoute (query-params status="outstanding") tagName="div" class="statistic statistic-link"}}
     <div class="value">
       {{format-money summaryData.outstanding precision=0}}
@@ -23,12 +25,14 @@
       in draft
     </div>
   {{/link-to}}
-  {{#link-to invoicesRoute (query-params status="overdue") tagName="div" class="statistic statistic-link"}}
-    <div class="value">
-      {{format-money summaryData.overdue precision=0}}
-    </div>
-    <div class="label">
-      overdue
-    </div>
-  {{/link-to}}
+  {{#unless hideOverdue}}
+    {{#link-to invoicesRoute (query-params status="overdue") tagName="div" class="statistic statistic-link"}}
+      <div class="value">
+	{{format-money summaryData.overdue precision=0}}
+      </div>
+      <div class="label">
+	overdue
+      </div>
+    {{/link-to}}
+  {{/unless}}
 </div>

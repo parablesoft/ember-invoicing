@@ -4,7 +4,7 @@
 	action-button-fulfilled-text="Invoice Sent!"
 	action-button-pending-text="Sending..."
 	subject=emailSubject
-	message="Default invoice message"
+	message=invoiceMessage
 	model=invoice
 	to=billingEmail
 	on-send-email=(action "sendInvoice")
@@ -36,6 +36,11 @@
 	{{#bs-button  action=(action "openEmailModal") class="massive positive massive-button ui button"}}
 	{{fa-icon "envelope"}} Send
 	{{/bs-button}}
+	  {{#if isDraft}}
+	  <button {{action "markAsSent" invoice}} class="massive red massive-button ui button">
+	    {{fa-icon "check"}} Mark as Sent
+	  </button>
+	  {{/if}}
 	{{/if}}
 	<a href="#" {{action "download" invoice}} class="massive massive-button ui button">{{fa-icon "download"}} Download</a>
       </div>
@@ -132,6 +137,7 @@
 	      <tbody>
 		{{#each lineItems as |lineItem|}}
 		{{invoice-line-item invoiceItems=invoice-items 
+		invoice=invoice
 		lineItem=lineItem
 		on-update=(action "updateLineItem")
 		on-delete=(action "deleteLineItem")
