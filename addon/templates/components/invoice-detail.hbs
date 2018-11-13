@@ -33,7 +33,7 @@
       <div class="col-md-6 margin-top-10 text-right">
 	{{link-to "return to invoices" invoices-route}}
 	{{#if isReadyToSend}}
-	{{#bs-button  action=(action "openEmailModal") class="massive positive massive-button ui button"}}
+	{{#bs-button  onClick=(action "openEmailModal") class="massive positive massive-button ui button"}}
 	{{fa-icon "envelope"}} Send
 	{{/bs-button}}
 	  {{#if isDraft}}
@@ -136,7 +136,7 @@
 	      </thead>
 	      <tbody>
 		{{#each lineItems as |lineItem|}}
-		{{invoice-line-item invoiceItems=invoice-items 
+		{{invoice-line-item invoiceItems=invoice-items
 		invoice=invoice
 		lineItem=lineItem
 		on-update=(action "updateLineItem")

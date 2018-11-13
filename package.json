@@ -21,7 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
-    "email-modal": "0.0.8",
+    "email-modal": "0.0.10",
     "ember-ajax": "^2.0.1",
     "ember-async-button": "1.0.2",
     "ember-aupac-typeahead": "2.1.1",
