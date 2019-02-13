@@ -1,25 +1,23 @@
 import Ember from "ember";
 import Notifyable from "ember-ui-helpers/mixins/notifyable";
-import computed from 'ember-computed-decorators';
-import { any,oneWay,alias,notEmpty,empty  } from 'ember-computed-decorators';
 const {get,set,Component} = Ember;
 export default Component.extend(Notifyable,{
   session: Ember.inject.service(),
-  @alias("invoice.dealer") dealer,
-  @oneWay("dealer.billingEmail") billingEmail,
-  @alias("invoice.invoiceLineItems") lineItems,
-  @alias("invoice.hasDirtyAttributes") isInvoiceDirty,
-  @empty("invoice.dueDate") isInvoiceIncomplete,
-  @computed("invoice.number") emailSubject(invoiceNumber){
-    return `[Marygrove Sunscreens Invoice #${invoiceNumber}]`;
-  },
-  @computed("lineItems","lineItems.@each.hasDirtyAttributes") hasDirtyLineItems(lineItems){
-    return lineItems.any(function(item){
+  dealer: Ember.computed.alias("invoice.dealer"),
+  billingEmail: Ember.computed.oneWay("dealer.billingEmail"),
+  lineItems: Ember.computed.alias("invoice.invoiceLineItems"),
+  isInvoiceDirty: Ember.computed.alias("invoice.hasDirtyAttributes"),
+  isInvoiceIncomplete: Ember.computed.empty("invoice.dueDate"),
+  emailSubject: Ember.computed("invoice.number", function() {
+    return `[Marygrove Sunscreens Invoice #${this.get("invoice.number")}]`;
+  }),
+  hasDirtyLineItems: Ember.computed("lineItems","lineItems.@each.hasDirtyAttributes", function() {
+    return this.get("lineItems").any(function(item){
       return item.get("hasDirtyAttributes");
     });
-  },
-  @empty("lineItems") canChangeDeal,
-  @notEmpty("billTo.content") isResourceLoaded,
+  }),
+  canChangeDeal: Ember.computed.empty("lineItems"),
+  isResourceLoaded: Ember.computed.notEmpty("billTo.content"),
   addLineItem(){
     let invoice = get(this,"invoice");
     let lineItem = this.store.createRecord("invoiceLineItem",{invoice: invoice, invoiceItem: null});
@@ -60,7 +58,7 @@ export default Component.extend(Notifyable,{
       let invoiceLabel = Ember.isPresent(number) ? number : id;
 
       $.ajax({
-	url: `${host}/api/v1/invoices/${id}.pdf`, 
+	url: `${host}/api/v1/invoices/${id}.pdf`,
 	success: download.bind(true, "application/pdf", `invoice-${invoiceLabel}.pdf`),
 	beforeSend: (xhr) => {
 	  this.get('session').authorize("authorizer:devise", (headerName, headerValue) => {

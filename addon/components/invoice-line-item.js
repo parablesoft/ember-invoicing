@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/invoice-line-item';
 import Changeset from 'ember-changeset';
-import { equal, alias } from 'ember-computed-decorators';
-import computed from 'ember-computed-decorators';
 
 const{set,get,Component,run} = Ember;
 const {later,cancel,debounce} = run;
@@ -16,9 +14,9 @@ export default Component.extend({
     this.changeset = new Changeset(lineItem);
   },
   tagName: "tr",
-  @alias("changeset.isDirty") isDirty,
-  @alias("invoice.status") invoiceStatus,
-  @equal("invoiceStatus","draft") isDraft,
+  isDirty: Ember.computed.alias("changeset.isDirty"),
+  invoiceStatus: Ember.computed.alias("invoice.status"),
+  isDraft: Ember.computed.equal("invoiceStatus","draft"),
   dirtyChanged: Ember.on('init', Ember.observer('isDirty', function() {
     let isDirty = this.get("changeset.isDirty");
     if(!isDirty){return;}

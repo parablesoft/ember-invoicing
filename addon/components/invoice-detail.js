@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/components/invoice-detail';
-import { equal,alias,empty } from 'ember-computed-decorators';
 
 const {run,get,set,Component,inject} = Ember;
 const {later} = run;
@@ -12,9 +11,9 @@ export default Ember.Component.extend({
   cannotAddLineItems: "There are no invoice items configured. Before you can invoice, invoice items must be added.",
   session: service(),
   store: service(),
-  @alias("invoice.invoiceLineItems") lineItems,
-  @empty("invoice.dueDate") isInvoiceIncomplete,
-  @equal("invoice.status","draft") isDraft,
+  lineItems: Ember.computed.alias("invoice.invoiceLineItems"),
+  isInvoiceIncomplete: Ember.computed.empty("invoice.dueDate"),
+  isDraft: Ember.computed.equal("invoice.status","draft"),
   toggleEmailModal(show=true){
     set(this,"isShowingEmailModal",show);
   },
@@ -58,7 +57,7 @@ export default Ember.Component.extend({
       let invoiceLabel = Ember.isPresent(number) ? number : id;
       let url = `${host}/api/v1/invoices/${id}.pdf`;
       Ember.$.ajax({
-	url: url, 
+	url: url,
 	success: download.bind(true, "application/pdf", `invoice-${invoiceLabel}.pdf`),
 	beforeSend: (xhr) => {
 	  this.get('session').authorize("authorizer:devise", (headerName, headerValue) => {
